@@ -45,6 +45,7 @@ That's NAT: **private instances can initiate outbound to the internet; the inter
 Lock in these facts:
 
 - The NAT Gateway **lives IN a public subnet** — it needs the IGW route itself to reach the internet. Private subnets then route `0.0.0.0/0 → nat-xxx`.
+- The NAT Gateway requires an Internet Gateway + Elastic IP.
 - A NAT Gateway is **per-AZ**. THE trap: one NAT Gateway shared by all AZs = a hidden single point of failure — if its AZ dies, every private subnet loses internet. *"Make NAT highly available"* → **one NAT Gateway per AZ**, each private subnet routing to its local one.
 - NAT Gateway is **managed, scales automatically (up to ~45–100 Gbps), no security groups on it**, pay per hour + per GB.
 - **NAT Instance** = the legacy DIY version: an EC2 instance doing NAT. It CAN have a security group, you manage/patch/size it yourself, and — THE NAT-instance answer — you must **disable the source/destination check** on it (EC2 normally drops traffic not addressed to itself; a NAT forwards other people's traffic, so the check must go).
