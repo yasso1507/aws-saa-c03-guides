@@ -20,6 +20,16 @@ You have two ways to connect your building to AWS. A **Site-to-Site VPN** (Virtu
 
 - **Client VPN** is the cousin: it connects **individual laptops** to a VPC — think "remote employees working from home," not "connect the datacenter."
 
+### Route Propagation
+Route propagation allows routes learned through a Virtual Private Gateway (VGW) to be automatically added to a VPC route table.
+Useful with dynamic routing/BGP because the VPC can learn on-premises network routes without manually adding each route.
+
+Without propagation, you can manually add routes such as:
+
+  | On-prem CIDR → VGW
+  
+Exam clue: “automatically learn/propagate on-premises routes into the VPC route table” → VGW route propagation.
+
 ## Direct Connect (DX)
 
 - **Dedicated private fiber** from your location to AWS. Never touches the public internet.
