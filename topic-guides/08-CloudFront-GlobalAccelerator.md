@@ -74,7 +74,14 @@ Global users use a TCP/UDP app (non-HTTP)   → Global Accelerator
 ### Two easy-to-miss CloudFront features (practice-test lessons)
 
 - **Origin group** = a **primary + secondary origin** pair: when the primary returns errors, CloudFront **automatically retries against the secondary**. THE answer to "configure CloudFront for high availability / origin failover." (Geo restriction next to it is the false twin — that's country blocking, not HA.)
-- **Price class** = which **edge locations** your distribution uses (all = best latency, fewer = cheaper). It's a **cost dial** — it has nothing to do with routing to origins. "Reduce CloudFront costs, tolerate higher latency in some regions" → price class.
+- **Price class** = which **edge locations** your distribution uses (all = best latency, fewer = cheaper). It's a **cost dial** — it has nothing to do with routing to origins. "Reduce CloudFront costs, tolerate higher latency in some regions" → price class. It controls which CloudFront edge locations can serve your distribution. It is a **cost vs latency dial**, not an origin-routing mechanism.
+
+| Price Class | Coverage | Cost / performance |
+|---|---|---|
+| **100** | Limited set of edge locations | 💰 Cheapest, potentially higher latency |
+| **200** | Larger set of edge locations | 💰💰 Middle ground |
+| **All** | All CloudFront edge locations | 💰💰💰 Best global coverage / potentially best latency |
+
 
 ## Question patterns
 
