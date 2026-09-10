@@ -28,9 +28,9 @@ THE trap: usage plans, API keys, and caching are **REST API only**. If the quest
 
 | Endpoint | For | Note |
 |---|---|---|
-| **Edge-Optimized** | **Globally distributed clients** | Routed through CloudFront's edge network automatically (default) |
-| **Regional** | Clients in the **same region** | Or when you want to bolt on **your own CloudFront** distribution |
-| **Private** | **VPC-only** access | Reached via an **Interface VPC Endpoint** — never touches the internet |
+| **Edge-Optimized** | **Globally distributed clients** | Routed through **CloudFront's edge network automatically** (default). For a **custom HTTPS domain**, ACM certificate must be in **`us-east-1`** |
+| **Regional** | Clients in the **same region** | Or when you want to use **your own CloudFront** distribution. For a **custom HTTPS domain**, ACM certificate must be in the **same region as the API** |
+| **Private** | **VPC-only** access | Reached via an **Interface VPC Endpoint** — never touches the public internet. For a **custom HTTPS domain**, ACM certificate must be in the **same region** |
 
 ## The auth trio (guaranteed question)
 
