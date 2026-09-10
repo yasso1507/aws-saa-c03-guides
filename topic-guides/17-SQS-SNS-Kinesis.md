@@ -49,6 +49,22 @@ More SQS facts:
 
 - Classic pattern: **Auto Scaling Group of workers scaling on queue depth** (CloudWatch metric `ApproximateNumberOfMessagesVisible`) — the queue gets long, more workers spawn.
 
+### Visibility timeout — the mechanic the exam adores:
+- When a worker reads a message, it is **hidden, not deleted** (default **30 seconds**).
+- Worker finishes → explicitly **deletes** it.
+- Worker crashes → timeout expires → message **reappears** for another worker. That's your built-in retry.
+- **THE trap: "messages are being processed twice."** Cause: processing takes longer than the visibility timeout, so the message reappears while worker #1 is still on it. Fix: **increase the visibility timeout**.
+
+### ChangeMessageVisibility — the trick:
+- If **one message needs more time** than the current visibility timeout, the **consumer/worker** can call `ChangeMessageVisibility` to extend the hiding period.
+- Think: **Visibility Timeout = default hiding window**; **ChangeMessageVisibility = extend it for this specific message**.
+- For **EC2/ECS/custom consumers**, your application/worker can call it.
+- For **Lambda consuming SQS**, Lambda's event-source integration manages the polling/visibility mechanics for you.
+
+**Don't confuse this with retries:**
+- `ChangeMessageVisibility` → **"I'm still processing it; keep it hidden."**
+- **DLQ + MaxReceiveCount** → controls how many times a message can be received before going to the DLQ.
+- **Lambda async invocation** → failed invocation gets **2 additional retries** (3 total attempts).
 ## SNS — the megaphone (PUSH, one → MANY)
 
 **SNS (Simple Notification Service)**: publish one message to a **topic**, and SNS **pushes** it to ALL **subscribers** simultaneously — **Lambda, SQS, HTTP endpoints, email, SMS, mobile push**.
