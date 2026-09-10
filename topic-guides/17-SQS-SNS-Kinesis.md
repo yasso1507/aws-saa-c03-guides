@@ -98,6 +98,9 @@ Streams is a river; **Firehose** is a delivery truck on a schedule: **near-real-
 
 Trigger phrase: **"stream data into S3 with the LEAST operational effort / no code"** → **Firehose**. If the answer needs custom consumers or replay → Streams.
 
++ Failed / All data saved in S3
++ Tansformations using Lambda
+
 ## Amazon MQ — the lift-and-shift broker
 
 Existing on-prem app speaking **open broker protocols — MQTT, AMQP, JMS, STOMP** (RabbitMQ / ActiveMQ)? Rewriting for SQS/SNS is work. **Amazon MQ** = managed RabbitMQ/ActiveMQ, so you **lift-and-shift without code changes**. Protocol names in the question = Amazon MQ.
